@@ -19,6 +19,9 @@ export class UserEntity extends EntityAbstract {
     @Column({ type: 'enum', enum: EUserStatus, default: EUserStatus.ACTIVE })
     status: EUserStatus
 
+    @Column({ type: 'int' })
+    roleId: number
+
     @ManyToOne(() => RoleEntity, (role) => role.id)
     role: RoleEntity
 
