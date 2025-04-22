@@ -14,7 +14,7 @@ export class SenderService {
             const sended = await this.mailer
                 .sendMail({
                     to: mail.to, // list of receivers
-                    from: stackENV.mailer.EMAIL_USER, // sender address
+                    //from: stackENV.mailer.EMAIL_USER, // sender address
                     subject: mail.subject, // Subject line
                     template: mail.template,
                     context: mail.context as { [name: string]: any },

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ServicesModule } from './services/services.module';
 
 @Module({
     imports: [
@@ -8,8 +7,7 @@ import { ServicesModule } from './services/services.module';
             isGlobal: true,
             envFilePath: '.env',
         }),
-        ServicesModule,
     ],
-    exports: [ServicesModule],
+    exports: [],
 })
 export class CoreModule { }

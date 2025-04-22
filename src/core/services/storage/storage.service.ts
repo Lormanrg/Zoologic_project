@@ -28,15 +28,8 @@ export class StorageService {
   private bucketString: string;
   private bucket: Bucket;
   constructor() {
-    this.storage = new Storage({
-      projectId: stackENV.storage.projectId,
-      credentials: {
-        client_email: stackENV.storage.clientEmail,
-        private_key: stackENV.storage.privateKey,
-      },
-    });
 
-    this.bucketString = stackENV.storage.storageBucket;
+
 
     this.bucket = this.storage.bucket(this.bucketString);
   }

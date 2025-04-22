@@ -1,20 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ZoologicModule } from './zoologic/zoologic.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseModule } from './database/database.module';
+import { CoreModule } from './core/core.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(
-    {
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'zoologic',
-      password: '123456',
-      autoLoadEntities: true,
-      database: 'Zoologic_DB',
-      synchronize: true
-    }
-  ), ZoologicModule],
+  imports: [DatabaseModule, CoreModule, ApplicationModule],
   controllers: [],
   providers: [],
 })
