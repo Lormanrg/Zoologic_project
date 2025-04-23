@@ -8,7 +8,7 @@ import { RoleEntity } from "./role.entity";
 export class UserEntity extends EntityAbstract {
 
     @Column({ type: 'varchar', length: 255, nullable: false })
-    userName: string
+    userName?: string
 
     @Column({ type: 'varchar', length: 255, nullable: false })
     email: string
@@ -17,13 +17,13 @@ export class UserEntity extends EntityAbstract {
     password: string
 
     @Column({ type: 'enum', enum: EUserStatus, default: EUserStatus.ACTIVE })
-    status: EUserStatus
+    status?: EUserStatus
 
     @Column({ type: 'int' })
-    roleId: number
+    roleId?: number
 
     @ManyToOne(() => RoleEntity, (role) => role.id)
-    role: RoleEntity
+    role?: RoleEntity
 
 
 

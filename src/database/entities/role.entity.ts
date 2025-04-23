@@ -11,5 +11,5 @@ export class RoleEntity extends EntityAbstract {
     name: string
 
     @Column()
-    status: ERoleStatus
+    status?: ERoleStatus
 }

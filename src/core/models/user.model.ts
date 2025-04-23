@@ -7,12 +7,12 @@ export enum EUserStatus {
 
 export class UserModel {
     id?: number
-    username: string;
+    userName?: string;
     email: string;
     password: string
-    roleId: number
-    role: RoleModel
-    status: EUserStatus
+    roleId?: number
+    role?: RoleModel
+    status?: EUserStatus
 
 
 
