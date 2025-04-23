@@ -49,6 +49,12 @@ export class UserService {
 
         try {
 
+            const findUser = await this.findOne(id)
+
+            if (!findUser) {
+                throw new Error('User not found')
+            }
+
             const updateUser = await this.userRepository.updateUser(id, data)
 
             return updateUser
