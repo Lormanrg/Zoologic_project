@@ -1,11 +1,12 @@
 import { AnimalModel } from "./animal.model"
+import { AnimalFeedModel } from "./animalFeed.model"
 import { FoodModel } from "./food.model"
 
 
 export class FeedModel {
     id?: number
-    animalId: number
-    animal: AnimalModel
+    animalFeedId: number
+    animalFeed: AnimalFeedModel
     foodId: number
     food: FoodModel
     quantity: number

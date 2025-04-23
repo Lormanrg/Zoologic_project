@@ -4,6 +4,7 @@ import { Column, OneToMany } from "typeorm";
 import { ZoneEntity } from "./zone.entity";
 import { HabitadEntity } from "./habitad.entity";
 import { AnimalCellEntity } from "./animalCell.entity";
+import { AnimalFeed } from "./animalFeed.entity";
 
 
 export class AnimalEntity extends EntityAbstract {
@@ -23,8 +24,9 @@ export class AnimalEntity extends EntityAbstract {
     @Column({ type: 'int' })
     feedId: number
 
-    @OneToMany(() => FeedEntity, (feed) => feed.animal)
-    feed: FeedEntity[]
+    @OneToMany(() => AnimalFeed, (animalFeed) => animalFeed.animal)
+    animalFeed: AnimalFeed
+
 
     @Column({ type: 'int' })
     zoneId: number

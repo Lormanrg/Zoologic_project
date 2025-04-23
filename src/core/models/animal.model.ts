@@ -1,4 +1,5 @@
 import { AnimalCellModel } from "./animalCell.model"
+import { AnimalFeedModel } from "./animalFeed.model"
 import { HabitadModel } from "./habitad.model"
 import { ZoneModel } from "./zone.model"
 
@@ -15,6 +16,8 @@ export class AnimalModel {
     zone: ZoneModel
     animalCellModelId: number
     animalCellModel: AnimalCellModel
+    animalFeedId: number
+    animalFeed: AnimalFeedModel
 
 
 
