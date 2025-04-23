@@ -1,9 +1,9 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
 import { OrderEntity } from "./order.entity";
 import { FoodEntity } from "./food.entity";
-import { Column, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 
-
+@Entity('order_details')
 export class OrderDetailsEntity extends EntityAbstract {
 
     @Column({ type: 'int' })

@@ -2,8 +2,9 @@ import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
 import { Column, OneToMany } from "typeorm";
 import { OrderDetailsEntity } from "./orderDetails.entity";
 import { FeedEntity } from "./feed.entity";
+import { Entity } from "typeorm";
 
-
+@Entity('food')
 export class FoodEntity extends EntityAbstract {
 
     @Column({ type: 'varchar', length: 255 })

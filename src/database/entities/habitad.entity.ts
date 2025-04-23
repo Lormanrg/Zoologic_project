@@ -1,9 +1,10 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
 import { ZoneEntity } from "./zone.entity";
-import { Column, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { AnimalEntity } from "./animal.entity";
 import { CellEntity } from "./cell.entity";
 
+@Entity('habitad')
 export class HabitadEntity extends EntityAbstract {
 
     @Column({ type: 'varchar' })
