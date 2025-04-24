@@ -1,11 +1,11 @@
-import { AnimalModel } from "./animal.model"
-import { CellModel } from "./cell.model"
+import { AnimalInput } from "./animal.input"
+import { CellModel } from "./cell.input"
 
 
 export class AnimalCellModel {
     id?: number
     animalId: number
-    animal: AnimalModel
+    animal: AnimalInput
     cellId: number
     cell: CellModel
 }

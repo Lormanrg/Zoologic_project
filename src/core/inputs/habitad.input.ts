@@ -1,5 +1,5 @@
-import { CellModel } from "./cell.model"
-import { ZoneModel } from "./zone.model"
+import { CellModel } from "./cell.input"
+import { ZoneModel } from "./zone.input"
 
 export enum EHabitatType {
     AQUATIC = 'AQUATIC',

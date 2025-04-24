@@ -1,5 +1,5 @@
-import { FoodModel } from "./food.model"
-import { OrderModel } from "./order.model"
+import { FoodModel } from "./food.input"
+import { OrderModel } from "./order.input"
 
 export class OrderDetailsModel {
     id?: number

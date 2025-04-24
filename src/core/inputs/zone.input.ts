@@ -1,5 +1,5 @@
-import { AnimalModel } from "./animal.model"
-import { HabitadModel } from "./habitad.model"
+import { AnimalInput } from "./animal.input"
+import { HabitadModel } from "./habitad.input"
 
 export class ZoneModel {
 
@@ -9,7 +9,7 @@ export class ZoneModel {
     description: string
     location: string
     animalId: number
-    animal: AnimalModel
+    animal: AnimalInput
     habitatId: number
     habitat: HabitadModel
 

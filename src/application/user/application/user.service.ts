@@ -1,7 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { UserRepository } from "../domain/user.repository";
-import { UserModel } from "src/core/models/user.model";
+import { UserModel } from "src/core/inputs/user.input";
 import { UserEntity } from "src/database/entities/user.entity";
+import { TodoEntity } from "src/database/entities/todo.entity";
 
 
 @Injectable()
@@ -11,6 +12,39 @@ export class UserService {
         protected readonly userRepository: UserRepository
     ) {
 
+    }
+
+    private todos: TodoEntity[] = [
+        {
+            id: 1,
+            description: 'Aprender NestJS',
+            done: false
+        },
+        {
+            id: 2,
+            description: 'Aprender React',
+            done: false
+        },
+        {
+            id: 3,
+            description: 'Aprender TypeScript',
+            done: false
+        }
+    ]
+
+    async findAllTodos(): Promise<TodoEntity[]> {
+        return this.todos
+    }
+
+    async findOneTodo(id: number): Promise<TodoEntity> {
+
+        const findTodo = this.todos.find(todo => todo.id === id)
+
+        if (!findTodo) {
+            throw new NotFoundException(`Todo con el id ${id} no existe`)
+        }
+
+        return findTodo
     }
 
     async createUser(data: UserModel): Promise<UserEntity> {
@@ -36,7 +70,7 @@ export class UserService {
         }
     }
 
-    async findAll(data: UserModel): Promise<UserModel[]> {
+    async findAll(data: UserEntity): Promise<UserEntity[]> {
         try {
 
             return await this.userRepository.findAllUser(data)

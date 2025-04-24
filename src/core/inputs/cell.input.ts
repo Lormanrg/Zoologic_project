@@ -1,5 +1,5 @@
-import { AnimalCellModel } from "./animalCell.model";
-import { HabitadModel } from "./habitad.model";
+import { AnimalCellModel } from "./animalCell.input";
+import { HabitadModel } from "./habitad.input";
 
 
 export class CellModel {

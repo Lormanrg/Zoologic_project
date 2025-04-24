@@ -44,7 +44,7 @@ export class UserRepository extends AbstractRepository<UserEntity> {
     async findAllUser(data: UserEntity): Promise<UserEntity[]> {
 
         try {
-            const findAllUser = await this.dataSource.getRepository(UserEntity).find({
+            const findAllUser = await this.dataSource?.getRepository(UserEntity)?.find({
                 where: data,
                 relations: {
                     role: true

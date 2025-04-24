@@ -1,9 +1,8 @@
-import { AnimalModel } from "./animal.model"
-import { AnimalFeedModel } from "./animalFeed.model"
-import { FoodModel } from "./food.model"
+import { AnimalFeedModel } from "./animalFeed.input"
+import { FoodModel } from "./food.input"
 
 
-export class FeedModel {
+export class FeedInput {
     id?: number
     animalFeedId: number
     animalFeed: AnimalFeedModel

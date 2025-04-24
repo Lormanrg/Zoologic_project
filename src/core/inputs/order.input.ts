@@ -1,4 +1,4 @@
-import { OrderDetailsModel } from "./orderDetails.model"
+import { OrderDetailsModel } from "./orderDetails.input"
 
 
 export class OrderModel {

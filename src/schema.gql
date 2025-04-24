@@ -1,0 +1,136 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RoleEntity {
+  name: String!
+  status: ERoleStatus!
+}
+
+"""El estado del rol"""
+enum ERoleStatus {
+  ADMIN
+  USER
+}
+
+type UserEntity {
+  userName: String!
+  email: String!
+  password: String!
+  status: EUserStatus!
+  roleId: Int!
+  role: RoleEntity!
+}
+
+"""El estado del usuario"""
+enum EUserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type TodoEntity {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
+type AnimalCellEntity {
+  animalId: Int!
+  animal: AnimalEntity!
+  cellId: Int!
+  cell: CellEntity!
+}
+
+type CellEntity {
+  animalId: Int!
+  habitadId: Int!
+  habitad: HabitadEntity!
+  animal: AnimalEntity!
+  animalCell: [AnimalCellEntity!]!
+}
+
+type HabitadEntity {
+  zonesId: Int!
+  zone: [ZoneEntity!]!
+  animalId: Int!
+  animal: AnimalEntity!
+  cellId: Int!
+  cells: [CellEntity!]!
+}
+
+type OrderEntity {
+  provider: String!
+  state: String!
+  orderDetailsId: Int!
+  orderDetails: [OrderDetailsEntity!]!
+}
+
+type OrderDetailsEntity {
+  orderId: Int!
+  order: OrderEntity!
+  foodId: Int!
+  food: FoodEntity!
+  quantity: Int!
+  price: Int!
+  totalPrice: Int!
+}
+
+type FoodEntity {
+  name: String!
+  category: String!
+  price: String!
+  stock: String!
+  orderDetailsId: Int!
+  orderDetails: [OrderDetailsEntity!]!
+  feedId: Int!
+  feeds: [FeedEntity!]!
+}
+
+type FeedEntity {
+  animalFeed: [AnimalFeed!]!
+  foodId: Int!
+  food: FoodEntity!
+}
+
+type AnimalFeed {
+  feed: FeedEntity!
+  quantity: Int!
+  animal: AnimalEntity!
+}
+
+type AnimalEntity {
+  name: String!
+  species: String!
+  age: String!
+  weight: String!
+  feedId: Int!
+  animalFeed: [AnimalFeed!]!
+  zoneId: Int!
+  zone: [ZoneEntity!]!
+  habitadId: Int!
+  habitad: [HabitadEntity!]!
+  animalCell: [AnimalCellEntity!]!
+}
+
+type ZoneEntity {
+  name: String!
+  description: String!
+  location: String!
+  animalId: Int!
+  animal: AnimalEntity!
+  habitatId: Int!
+  habitat: HabitadEntity!
+}
+
+type Query {
+  createUser: UserEntity!
+
+  """Devuelve todos los usuarios registrados"""
+  Users: [UserEntity!]
+  todos: [TodoEntity!]
+  todo(id: Int!): TodoEntity!
+}
+
+type Mutation {
+  createTodo1: TodoEntity!
+}

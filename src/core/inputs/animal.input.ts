@@ -1,10 +1,10 @@
-import { AnimalCellModel } from "./animalCell.model"
-import { AnimalFeedModel } from "./animalFeed.model"
-import { HabitadModel } from "./habitad.model"
-import { ZoneModel } from "./zone.model"
+import { AnimalCellModel } from "./animalCell.input"
+import { AnimalFeedModel } from "./animalFeed.input"
+import { HabitadModel } from "./habitad.input"
+import { ZoneModel } from "./zone.input"
 
 
-export class AnimalModel {
+export class AnimalInput {
     id?: number
     name: string
     species: string
