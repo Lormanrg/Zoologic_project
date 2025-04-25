@@ -14,14 +14,19 @@ export class UserRepository extends AbstractRepository<UserEntity> {
 
     async createUser(user: UserEntity): Promise<UserEntity> {
         try {
-            const newUser = this.dataSource.getRepository(UserEntity).create(user)
+            const repository = this.dataSource.getRepository(UserEntity);
+            const newUser = repository.create(user);
+            const savedUser = await repository.save(newUser);
 
-            return newUser
+            if (!savedUser) {
+                throw new Error('Failed to save user');
+            }
+
+            return savedUser;
         } catch (error) {
-            throw new Error(error)
+            console.error('Error creating user:', error);
+            throw new Error(`Failed to create user: ${error.message}`);
         }
-
-
     }
 
     async findOneUser(id: number) {

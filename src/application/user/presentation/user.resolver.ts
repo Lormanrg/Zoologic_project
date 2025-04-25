@@ -3,6 +3,7 @@ import { UserService } from "../application/user.service";
 import { Type } from 'class-transformer';
 import { UserEntity } from "src/database/entities/user.entity";
 import { TodoEntity } from "src/database/entities/todo.entity";
+import { UserInput } from "src/core/inputs/user.input";
 
 
 @Resolver()
@@ -28,13 +29,22 @@ export class UserResolver {
         protected readonly userService: UserService
     ) { }
 
-    @Query(() => UserEntity)
-    async createUser(data: UserEntity): Promise<UserEntity> {
+    @Mutation(() => UserEntity)
+    async createUser(@Args('data') data: UserInput): Promise<UserEntity> {
+        try {
+            console.log("🚀 ~ UserResolver ~ createUser ~ data:", JSON.stringify(data, null, 2));
 
-        const createUser = await this.userService.createUser(data)
+            const createdUser = await this.userService.createUser(data);
 
-        return createUser
+            if (!createdUser) {
+                throw new Error('Failed to create user');
+            }
 
+            return createdUser;
+        } catch (error) {
+            console.error('Error in createUser mutation:', error);
+            throw new Error(`Failed to create user: ${error.message}`);
+        }
     }
 
     @Query(() => [UserEntity], { name: 'Users', description: 'Devuelve todos los usuarios registrados', nullable: true })

@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { UserRepository } from "../domain/user.repository";
-import { UserModel } from "src/core/inputs/user.input";
 import { UserEntity } from "src/database/entities/user.entity";
 import { TodoEntity } from "src/database/entities/todo.entity";
+import { Args } from "@nestjs/graphql";
+import { UserInput } from "src/core/inputs/user.input";
 
 
 @Injectable()
@@ -47,14 +48,22 @@ export class UserService {
         return findTodo
     }
 
-    async createUser(data: UserModel): Promise<UserEntity> {
+    async createUser(data: UserInput): Promise<UserEntity> {
         try {
-            return await this.userRepository.createUser(data)
+            const user = new UserEntity();
+            Object.assign(user, data);
 
+            const createdUser = await this.userRepository.createUser(user);
+
+            if (!createdUser) {
+                throw new Error('Failed to create user');
+            }
+
+            return createdUser;
         } catch (error) {
-            throw new Error(error)
+            console.error('Error in createUser service:', error);
+            throw new Error(`Failed to create user: ${error.message}`);
         }
-
     }
 
     async findOne(id: number): Promise<UserEntity> {
@@ -79,7 +88,7 @@ export class UserService {
         }
     }
 
-    async updateUser(id: number, data: Partial<UserModel>): Promise<UserEntity> {
+    async updateUser(id: number, data: Partial<UserInput>): Promise<UserEntity> {
 
         try {
 
