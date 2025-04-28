@@ -1,25 +1,25 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
 import { Column, Entity, ManyToOne } from "typeorm";
-import { FeedEntity } from "./feed.entity";
-import { AnimalEntity } from "./animal.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Feed } from "./feed.entity";
+import { Animal } from "./animal.entity";
 
 
 @Entity('animal_feed')
 @ObjectType()
 export class AnimalFeed extends EntityAbstract {
 
-    @ManyToOne(() => FeedEntity, (feed) => feed.animalFeed)
-    @Field(() => FeedEntity)
-    feed: FeedEntity
+    @ManyToOne(() => Feed, (feed) => feed.animalFeed)
+    @Field(() => Feed)
+    feed: Feed
 
     @Column({ type: 'int' })
     @Field(() => Int)
     quantity: string
 
-    @ManyToOne(() => AnimalEntity, (animal) => animal.animalFeed)
-    @Field(() => AnimalEntity)
-    animal: AnimalEntity
+    @ManyToOne(() => Animal, (animal) => animal.animalFeed)
+    @Field(() => Animal)
+    animal: Animal
 
 
 }

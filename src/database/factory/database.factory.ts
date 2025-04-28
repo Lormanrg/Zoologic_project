@@ -16,6 +16,7 @@ export class DatabaseFactory implements TypeOrmOptionsFactory {
             password: this.configService.get<string>('DB_PASSWORD', 'postgres'), // Fallback to 'postgres'
             database: this.configService.get<string>('DB_DATABASE', 'postgres'), // Fallback to 'postgres'
             entities: [__dirname + '/../**/*.entity{.ts,.js}'], // Path to entities
+            autoLoadEntities: true,
             synchronize: this.configService.get<boolean>('DB_SYNCHRONIZE', true), // Fallback to true
             schema: 'public'
 

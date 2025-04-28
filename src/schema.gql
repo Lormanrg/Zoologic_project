@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type RoleEntity {
+type Role {
   name: String!
   status: ERoleStatus!
 }
@@ -13,13 +13,13 @@ enum ERoleStatus {
   USER
 }
 
-type UserEntity {
+type User {
   userName: String!
   email: String!
   password: String!
   status: EUserStatus!
   roleId: Int!
-  role: RoleEntity
+  role: Role
 }
 
 """El estado del usuario"""
@@ -28,77 +28,68 @@ enum EUserStatus {
   INACTIVE
 }
 
-type TodoEntity {
+type Todo {
   id: Int!
   description: String!
   done: Boolean!
 }
 
-type AnimalCellEntity {
-  animalId: Int!
-  animal: AnimalEntity!
-  cellId: Int!
-  cell: CellEntity!
-}
-
-type CellEntity {
+type Cell {
   animalId: Int!
   habitadId: Int!
-  habitad: HabitadEntity!
-  animal: AnimalEntity!
-  animalCell: [AnimalCellEntity!]!
+  habitad: Habitad!
+  animal: Animal!
+  animalCell: [AnimalCell!]!
 }
 
-type HabitadEntity {
-  zonesId: Int!
-  zone: [ZoneEntity!]!
+type AnimalCell {
   animalId: Int!
-  animal: AnimalEntity!
+  animal: Animal!
   cellId: Int!
-  cells: [CellEntity!]!
+  cell: Cell!
 }
 
-type OrderEntity {
+type Order {
   provider: String!
   state: String!
   orderDetailsId: Int!
-  orderDetails: [OrderDetailsEntity!]!
+  orderDetails: [OrderDetails!]!
 }
 
-type OrderDetailsEntity {
+type OrderDetails {
   orderId: Int!
-  order: OrderEntity!
+  order: Order!
   foodId: Int!
-  food: FoodEntity!
+  food: Food!
   quantity: Int!
   price: Int!
   totalPrice: Int!
 }
 
-type FoodEntity {
+type Food {
   name: String!
   category: String!
   price: String!
   stock: String!
   orderDetailsId: Int!
-  orderDetails: [OrderDetailsEntity!]!
+  orderDetails: [OrderDetails!]!
   feedId: Int!
-  feeds: [FeedEntity!]!
+  feeds: [Feed!]!
 }
 
-type FeedEntity {
+type Feed {
   animalFeed: [AnimalFeed!]!
   foodId: Int!
-  food: FoodEntity!
+  food: Food!
 }
 
 type AnimalFeed {
-  feed: FeedEntity!
+  feed: Feed!
   quantity: Int!
-  animal: AnimalEntity!
+  animal: Animal!
 }
 
-type AnimalEntity {
+type Animal {
   name: String!
   species: String!
   age: String!
@@ -106,36 +97,44 @@ type AnimalEntity {
   feedId: Int!
   animalFeed: [AnimalFeed!]!
   zoneId: Int!
-  zone: [ZoneEntity!]!
+  zone: [Zone!]!
   habitadId: Int!
-  habitad: [HabitadEntity!]!
-  animalCell: [AnimalCellEntity!]!
+  habitad: [Habitad!]!
+  animalCell: [AnimalCell!]!
 }
 
-type ZoneEntity {
+type Habitad {
+  zonesId: Int!
+  zone: [Zone!]!
+  animalId: Int!
+  animal: Animal!
+  cellId: Int!
+  cells: [Cell!]!
+}
+
+type Zone {
   name: String!
   description: String!
   location: String!
   animalId: Int!
-  animal: AnimalEntity!
+  animal: Animal!
   habitatId: Int!
-  habitat: HabitadEntity!
+  habitat: Habitad!
 }
 
 type Query {
   """Devuelve todos los usuarios registrados"""
-  Users: [UserEntity!]
-  todos: [TodoEntity!]
-  todo(id: Int!): TodoEntity!
+  Users: [User!]
+  todos: [Todo!]
+  todo(id: Int!): Todo!
 }
 
 type Mutation {
-  createUser(data: UserInput!): UserEntity!
-  createTodo1: TodoEntity!
+  createUser(data: UserInput!): User!
+  createTodo1: Todo!
 }
 
 input UserInput {
-  id: Int
   userName: String
   email: String!
   password: String!

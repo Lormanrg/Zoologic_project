@@ -1,37 +1,37 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
-import { ZoneEntity } from "./zone.entity";
+import { Zone } from "./zone.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { AnimalEntity } from "./animal.entity";
-import { CellEntity } from "./cell.entity";
+import { Animal } from "./animal.entity";
+import { Cell } from "./cell.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @Entity('habitad')
 @ObjectType()
-export class HabitadEntity extends EntityAbstract {
+export class Habitad extends EntityAbstract {
 
     @Column({ type: 'varchar' })
     @Field(() => Int)
     zonesId: number
 
-    @OneToMany(() => ZoneEntity, (zone) => zone.habitat)
-    @Field(() => [ZoneEntity])
-    zone: ZoneEntity[]
+    @OneToMany(() => Zone, (zone) => zone.habitat)
+    @Field(() => [Zone])
+    zone: Zone[]
 
 
     @Column({ type: 'varchar' })
     @Field(() => Int)
     animalId: number
 
-    @ManyToOne(() => AnimalEntity, (animal) => animal.habitad)
-    @Field(() => AnimalEntity)
-    animal: AnimalEntity
+    @ManyToOne(() => Animal, (animal) => animal.habitad)
+    @Field(() => Animal)
+    animal: Animal
 
     @Column({ type: 'int' })
     @Field(() => Int)
     cellId: number
 
-    @OneToMany(() => CellEntity, (cell) => cell.habitad)
-    @Field(() => [CellEntity])
-    cells: CellEntity[]
+    @OneToMany(() => Cell, (cell) => cell.habitad)
+    @Field(() => [Cell])
+    cells: Cell[]
 }
 

@@ -7,7 +7,7 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 @Entity('role')
-export class RoleEntity extends EntityAbstract {
+export class Role extends EntityAbstract {
 
     @Column()
     @Field(() => String)

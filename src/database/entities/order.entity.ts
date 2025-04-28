@@ -1,11 +1,11 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
 import { Column, Entity, OneToMany } from "typeorm";
-import { OrderDetailsEntity } from "./orderDetails.entity";
+import { OrderDetails } from "./orderDetails.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @Entity('order')
 @ObjectType()
-export class OrderEntity extends EntityAbstract {
+export class Order extends EntityAbstract {
 
     @Column({ type: 'varchar', length: 255 })
     @Field(() => String)
@@ -19,9 +19,9 @@ export class OrderEntity extends EntityAbstract {
     @Field(() => Int)
     orderDetailsId: number
 
-    @OneToMany(() => OrderDetailsEntity, (orderDetails) => orderDetails.order)
-    @Field(() => [OrderDetailsEntity])
-    orderDetails: OrderDetailsEntity[]
+    @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
+    @Field(() => [OrderDetails])
+    orderDetails: OrderDetails[]
 
 
 }

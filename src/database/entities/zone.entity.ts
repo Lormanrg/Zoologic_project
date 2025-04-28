@@ -1,12 +1,12 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
-import { AnimalEntity } from "./animal.entity";
-import { HabitadEntity } from "./habitad.entity";
+import { Habitad } from "./habitad.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Animal } from "./animal.entity";
 
 @Entity('zone')
 @ObjectType()
-export class ZoneEntity extends EntityAbstract {
+export class Zone extends EntityAbstract {
 
 
     @Column({ type: 'varchar' })
@@ -25,15 +25,15 @@ export class ZoneEntity extends EntityAbstract {
     @Field(() => Int)
     animalId: number
 
-    @ManyToOne(() => AnimalEntity, (animal) => animal.zone)
-    @Field(() => AnimalEntity)
-    animal: AnimalEntity
+    @ManyToOne(() => Animal, (animal) => animal.zone)
+    @Field(() => Animal)
+    animal: Animal
 
     @Column({ type: 'int' })
     @Field(() => Int)
     habitatId: number
 
-    @ManyToOne(() => HabitadEntity, (habitat) => habitat.zone)
-    @Field(() => HabitadEntity)
-    habitat: HabitadEntity
+    @ManyToOne(() => Habitad, (habitat) => habitat.zone)
+    @Field(() => Habitad)
+    habitat: Habitad
 }

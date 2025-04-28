@@ -1,9 +1,9 @@
 import { Args, Float, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { UserService } from "../application/user.service";
 import { Type } from 'class-transformer';
-import { UserEntity } from "src/database/entities/user.entity";
-import { TodoEntity } from "src/database/entities/todo.entity";
 import { UserInput } from "src/core/inputs/user.input";
+import { User } from "src/database/entities/user.entity";
+import { Todo } from "src/database/entities/todo.entity";
 
 
 @Resolver()
@@ -29,26 +29,27 @@ export class UserResolver {
         protected readonly userService: UserService
     ) { }
 
-    @Mutation(() => UserEntity)
-    async createUser(@Args('data') data: UserInput): Promise<UserEntity> {
+    @Mutation(() => User)
+    async createUser(@Args('data') data: UserInput): Promise<User> {
+
         try {
-            console.log("🚀 ~ UserResolver ~ createUser ~ data:", JSON.stringify(data, null, 2));
 
-            const createdUser = await this.userService.createUser(data);
+            const { email, password, ...rest } = data
+            const createUser = await this.userService.createUser({
+                email: email,
+                password: password,
+                ...rest
+            })
 
-            if (!createdUser) {
-                throw new Error('Failed to create user');
-            }
-
-            return createdUser;
+            return createUser
         } catch (error) {
-            console.error('Error in createUser mutation:', error);
-            throw new Error(`Failed to create user: ${error.message}`);
+            throw error
         }
+
     }
 
-    @Query(() => [UserEntity], { name: 'Users', description: 'Devuelve todos los usuarios registrados', nullable: true })
-    async getAllUsers(): Promise<UserEntity[]> {
+    @Query(() => [User], { name: 'Users', description: 'Devuelve todos los usuarios registrados', nullable: true })
+    async getAllUsers(): Promise<User[]> {
 
         return this.userService.findAll({} as any)
     }
@@ -72,16 +73,16 @@ export class UserResolver {
 
     // }
 
-    @Query(() => [TodoEntity], { name: 'todos', nullable: true })
-    async findAll(): Promise<TodoEntity[]> {
+    @Query(() => [Todo], { name: 'todos', nullable: true })
+    async findAll(): Promise<Todo[]> {
         return this.userService.findAllTodos()
     }
 
-    @Query(() => TodoEntity, { name: 'todo' })
-    async findOne(@Args('id', { type: () => Int }) id: number): Promise<TodoEntity> {
+    @Query(() => Todo, { name: 'todo' })
+    async findOne(@Args('id', { type: () => Int }) id: number): Promise<Todo> {
         return this.userService.findOneTodo(id)
     }
 
-    @Mutation(() => TodoEntity, { name: 'createTodo1' })
+    @Mutation(() => Todo, { name: 'createTodo1' })
     async createTodo() { }
 }

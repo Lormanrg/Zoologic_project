@@ -1,28 +1,28 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
-import { OrderEntity } from "./order.entity";
-import { FoodEntity } from "./food.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Order } from "./order.entity";
+import { Food } from "./food.entity";
 
 @Entity('order_details')
 @ObjectType()
-export class OrderDetailsEntity extends EntityAbstract {
+export class OrderDetails extends EntityAbstract {
 
     @Column({ type: 'int' })
     @Field(() => Int)
     orderId: number
 
-    @ManyToOne(() => OrderEntity, (order) => order.orderDetails)
-    @Field(() => OrderEntity)
-    order: OrderEntity
+    @ManyToOne(() => Order, (order) => order.orderDetails)
+    @Field(() => Order)
+    order: Order
 
     @Column({ type: 'int' })
     @Field(() => Int)
     foodId: number
 
-    @ManyToOne(() => FoodEntity, (food) => food.orderDetails)
-    @Field(() => FoodEntity)
-    food: FoodEntity
+    @ManyToOne(() => Food, (food) => food.orderDetails)
+    @Field(() => Food)
+    food: Food
 
     @Column({ type: 'int' })
     @Field(() => Int)

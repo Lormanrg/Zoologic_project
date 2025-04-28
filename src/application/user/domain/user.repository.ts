@@ -1,38 +1,38 @@
 import { AbstractRepository } from "src/core/database/pg/abstract.repository";
-import { UserEntity } from "src/database/entities/user.entity";
+import { User } from "src/database/entities/user.entity";
 import { DataSource, EntityTarget } from "typeorm";
 
 
 
-export class UserRepository extends AbstractRepository<UserEntity> {
+export class UserRepository extends AbstractRepository<User> {
     constructor(
         protected readonly dataSource: DataSource,
-        protected readonly repository: EntityTarget<UserEntity>
+        protected readonly repository: EntityTarget<User>
     ) {
         super(repository, dataSource)
     }
 
-    async createUser(user: UserEntity): Promise<UserEntity> {
+    async createUser(user: User): Promise<User> {
         try {
-            const repository = this.dataSource.getRepository(UserEntity);
-            const newUser = repository.create(user);
-            const savedUser = await repository.save(newUser);
 
-            if (!savedUser) {
-                throw new Error('Failed to save user');
-            }
+            const repository = this.dataSource?.getRepository(User)
+            const newUser = repository?.create(user)
 
-            return savedUser;
+
+            const savedUser = await repository?.save(newUser)
+
+            return savedUser
         } catch (error) {
-            console.error('Error creating user:', error);
-            throw new Error(`Failed to create user: ${error.message}`);
+            throw new Error(error)
         }
+
+
     }
 
     async findOneUser(id: number) {
 
         try {
-            const findUser = await this.dataSource.getRepository(UserEntity).findOne({
+            const findUser = await this.dataSource.getRepository(User).findOne({
                 where: { id },
                 relations: {
                     role: true
@@ -46,10 +46,10 @@ export class UserRepository extends AbstractRepository<UserEntity> {
         }
     }
 
-    async findAllUser(data: UserEntity): Promise<UserEntity[]> {
+    async findAllUser(data: User): Promise<User[]> {
 
         try {
-            const findAllUser = await this.dataSource?.getRepository(UserEntity)?.find({
+            const findAllUser = await this.dataSource?.getRepository(User)?.find({
                 where: data,
                 relations: {
                     role: true
@@ -63,11 +63,11 @@ export class UserRepository extends AbstractRepository<UserEntity> {
         }
     }
 
-    async updateUser(id: number, data: Partial<UserEntity>): Promise<UserEntity> {
+    async updateUser(id: number, data: Partial<User>): Promise<User> {
         try {
-            await this.dataSource.getRepository(UserEntity).update({ id }, data)
+            await this.dataSource.getRepository(User).update({ id }, data)
 
-            const user = await this.dataSource.getRepository(UserEntity).findOne({
+            const user = await this.dataSource.getRepository(User).findOne({
                 where: { id },
                 relations: {
                     role: true

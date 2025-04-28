@@ -1,13 +1,12 @@
 import { EntityAbstract } from "src/core/database/pg/table/abstract.table";
-import { AnimalEntity } from "./animal.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { FoodEntity } from "./food.entity";
+import { Food } from "./food.entity";
 import { AnimalFeed } from "./animalFeed.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @Entity('feed')
 @ObjectType()
-export class FeedEntity extends EntityAbstract {
+export class Feed extends EntityAbstract {
 
     @Field(() => [AnimalFeed])
 
@@ -18,8 +17,8 @@ export class FeedEntity extends EntityAbstract {
     @Field(() => Int)
     foodId: number
 
-    @ManyToOne(() => FoodEntity, (food) => food.feeds)
-    @Field(() => FoodEntity)
-    food: FoodEntity
+    @ManyToOne(() => Food, (food) => food.feeds)
+    @Field(() => Food)
+    food: Food
 
 }

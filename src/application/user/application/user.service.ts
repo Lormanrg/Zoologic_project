@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { UserRepository } from "../domain/user.repository";
-import { UserEntity } from "src/database/entities/user.entity";
-import { TodoEntity } from "src/database/entities/todo.entity";
 import { Args } from "@nestjs/graphql";
 import { UserInput } from "src/core/inputs/user.input";
+import { Todo } from "src/database/entities/todo.entity";
+import { User } from "src/database/entities/user.entity";
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserService {
 
     }
 
-    private todos: TodoEntity[] = [
+    private todos: Todo[] = [
         {
             id: 1,
             description: 'Aprender NestJS',
@@ -33,11 +33,11 @@ export class UserService {
         }
     ]
 
-    async findAllTodos(): Promise<TodoEntity[]> {
+    async findAllTodos(): Promise<Todo[]> {
         return this.todos
     }
 
-    async findOneTodo(id: number): Promise<TodoEntity> {
+    async findOneTodo(id: number): Promise<Todo> {
 
         const findTodo = this.todos.find(todo => todo.id === id)
 
@@ -48,25 +48,27 @@ export class UserService {
         return findTodo
     }
 
-    async createUser(data: UserInput): Promise<UserEntity> {
+    async createUser(data: UserInput): Promise<User> {
         try {
-            const user = new UserEntity();
-            Object.assign(user, data);
 
-            const createdUser = await this.userRepository.createUser(user);
+            const findUserByEmail = await this.userRepository.findOne({
+                where: { email: data?.email }
+            })
 
-            if (!createdUser) {
-                throw new Error('Failed to create user');
+            if (findUserByEmail) {
+                throw new Error('Usuario ya existe')
             }
+            const createUser = await this.userRepository.createUser(data)
 
-            return createdUser;
+            return createUser
+
         } catch (error) {
-            console.error('Error in createUser service:', error);
-            throw new Error(`Failed to create user: ${error.message}`);
+            throw new Error(error)
         }
+
     }
 
-    async findOne(id: number): Promise<UserEntity> {
+    async findOne(id: number): Promise<User> {
         try {
 
             const findUser = await this.userRepository.findOneUser(id)
@@ -79,7 +81,7 @@ export class UserService {
         }
     }
 
-    async findAll(data: UserEntity): Promise<UserEntity[]> {
+    async findAll(data: User): Promise<User[]> {
         try {
 
             return await this.userRepository.findAllUser(data)
@@ -88,7 +90,7 @@ export class UserService {
         }
     }
 
-    async updateUser(id: number, data: Partial<UserInput>): Promise<UserEntity> {
+    async updateUser(id: number, data: Partial<UserInput>): Promise<User> {
 
         try {
 
